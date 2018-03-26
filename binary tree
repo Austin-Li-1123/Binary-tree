@@ -1,0 +1,192 @@
+/**
+ * A class that implements a basic binary tree storing integers.
+ * This binary tree is an example of a <i>recursive data structure</i>, since each tree instance
+ * refers to several other tree instances to complete the entire structure.
+ */
+public class Tree {
+
+    /* Current node's parent. May be null if I'm the root of the tree. */
+    /**
+     ** A method.
+
+     **/
+    private Tree parent;
+
+    /* Current node's left child, or null if none. */
+    /**
+     ** A method.
+
+     **/
+    private Tree left;
+
+    /* Current node's left child, or null if none. */
+    /**
+     ** A method.
+
+     **/
+    private Tree right;
+
+    /* Current node's value. */
+    /**
+     ** A method.
+
+     **/
+    private int value;
+    /**
+     ** A method.
+    **@param setValue is.
+     **/
+    public Tree(final int setValue) {
+        this.value = setValue;
+    }
+    /**
+     ** A method.
+    **@param setValue is.
+    **@param setParent is.
+     **/
+    public Tree(final int setValue, final Tree setParent) {
+        this.value = setValue;
+        //if (setParent != null && (setParent.left != null || setParent.right != null)) {
+            this.parent = setParent;
+        //}
+
+    }
+    /**
+     ** A method.
+    **@return return an int.
+     **/
+    public int depth() {
+        if (this.parent == null) {
+            return 0;
+        }
+        return (this.parent.depth() + 1);
+    }
+    /**
+     ** A method.
+    **@return return an int.
+     **/
+    public int descendants() {
+        int count = 0;
+        if (left != null) {
+            count += 1 + this.left.descendants();
+        }
+        if (right != null) {
+            count += 1 + this.right.descendants();
+        }
+        return count;
+    }
+    /*public boolean insert(int newValue) {
+        boolean root = false;
+        if (this.parent != null && root == false) {
+            return this.parent.insert(newValue);
+        }
+        root = true;
+        return this.insertt(newValue);
+
+
+    }*/
+    /**
+     ** A method.
+    **@return return a boolean.
+    *@param valuee is.
+     **/
+    public boolean insert(final int valuee) {
+        if (valuee == this.value) {
+            return false;
+        } else if (valuee < this.value) {
+            if (this.left != null) {
+                return this.left.insert(valuee);
+            } else {
+                this.left = new Tree(valuee, this);
+                return true;
+            }
+        } else if (valuee > this.value) {
+            if (this.right != null) {
+                return this.right.insert(valuee);
+            } else {
+                this.right = new Tree(valuee, this);
+                return true;
+            }
+        }
+        return false;
+
+    }
+    /**
+     ** A method.
+    **@return return an int.
+     **/
+    public int maximum() {
+        if (this.right != null) {
+            return this.right.maximum();
+        }
+        return this.value;
+
+    }
+    /**
+     ** A method.
+    **@return return an int.
+     **/
+    public int minimum() {
+        if (this.left != null) {
+            return this.left.minimum();
+        }
+        return this.value;
+
+    }
+    /**
+     ** A method.
+    **@return return an int.
+    *@param searchValue is.
+     **/
+    public Tree search(final int searchValue) {
+        boolean root = false;
+        if (this.parent != null && root == false) {
+            return this.parent.search(searchValue);
+        }
+        root = true;
+        return this.searchhh(searchValue);
+
+    }
+    /**
+     ** A method.
+    **@return return an int.
+    *@param valuee is.
+     **/
+    public Tree searchhh(final int valuee) {
+        if (this.value == valuee) {
+            return this;
+        } else if (valuee < this.value) {
+            if (this.left != null) {
+                return this.left.searchhh(valuee);
+            }
+        } else if (valuee > this.value) {
+            if (this.right != null) {
+                return this.right.searchhh(valuee);
+            }
+
+        }
+        return null;
+
+    }
+    /**
+     ** A method.
+    **@return return an int.
+    *@param values is.
+     **/
+    public Tree searchh(final int values) {
+        if (this.value == values) {
+            return this;
+        }
+
+        if (this.left != null) {
+            if (this.left.searchh(values) == null) {
+                if (this.right != null) {
+                        return this.right.searchh(values);
+                }
+            }
+        }
+
+        return null;
+    }
+
+}
